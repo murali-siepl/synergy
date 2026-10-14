@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synergy Fincare | Wealth. Trust. Growth. In Synergy.</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#0A192F',
+                            dark: '#050D1A',
+                            light: '#112240',
+                            accent: '#1E3A8A'
+                        },
+                        gold: {
+                            DEFAULT: '#D99B00',
+                            hover: '#B88300',
+                            light: '#FEF3C7',
+                            soft: '#FFFBEB'
+                        },
+                        slateBg: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Styles -->
+    <style>
+        /* Keep section content clear of the sticky header on anchor jumps */
+        section[id] { scroll-margin-top: 80px; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8F9FA;
+            color: #1E293B;
+            font-weight: 500;
+        }
+
+        /* Increase boldness of body content */
+        p, li, span, div, a {
+            font-weight: 500;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #D99B00 0%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navy-gradient {
+            background: linear-gradient(135deg, #0A192F 0%, #0F2A4A 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .custom-shadow {
+            box-shadow: 0 10px 30px -10px rgba(10, 25, 47, 0.08);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+		/* Override h-14 to be 4.5rem instead of 3.5rem */
+    .h-14 {
+        height: 4.5rem !important;
+    }
+    </style>
+</head>
+<body class="antialiased text-slate-800 bg-slateBg flex flex-col min-h-screen font-medium">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Block -->
+							 
+				<a href="#home" class="flex items-center group">
+					<img src="logo.png" alt="Synergy Fincare Logo" class="h-14 w-auto object-contain">
+				</a>
+
+
+                <!-- Desktop Navigation Links (Growth Trends tab removed) -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="text-sm font-semibold text-slate-700 hover:text-gold transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-semibold text-slate-700 hover:text-gold transition-colors">About Us</a>
+                    <a href="#services" class="text-sm font-semibold text-slate-700 hover:text-gold transition-colors">Services</a>
+                    <a href="#calculator" class="text-sm font-semibold text-slate-700 hover:text-gold transition-colors">Retirement Calculator</a>
+                    <a href="#contact" class="text-sm font-semibold text-slate-700 hover:text-gold transition-colors">Contact</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden lg:flex items-center">
+                    <a href="#contact" class="bg-gold hover:bg-gold-hover text-white font-bold px-5 py-2.5 rounded-lg text-sm shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5">
+                       Connect  Team Synergy
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-700 hover:text-navy focus:outline-none p-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav (Growth Trends tab removed) -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block py-2 text-base font-semibold text-slate-700 hover:text-gold">Home</a>
+            <a href="#about" class="mobile-link block py-2 text-base font-semibold text-slate-700 hover:text-gold">About Us</a>
+            <a href="#services" class="mobile-link block py-2 text-base font-semibold text-slate-700 hover:text-gold">Services</a>
+            <a href="#calculator" class="mobile-link block py-2 text-base font-semibold text-slate-700 hover:text-gold">Retirement Calculator</a>
+            <a href="#contact" class="mobile-link block py-2 text-base font-semibold text-slate-700 hover:text-gold">Contact</a>
+            <a href="#contact" class="mobile-link block w-full text-center bg-gold text-white font-bold py-3 rounded-lg text-base mt-2">Book Consultation to Connect Team Synergy</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative navy-gradient text-white pt-6 pb-10 sm:pt-8 sm:pb-12 lg:pt-6 lg:pb-12 overflow-hidden">
+        <!-- Abstract Background Pattern -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-0 -left-20 w-96 h-96 rounded-full bg-gold blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-blue-500 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-gold text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-shield-halved text-xs"></i> Care For Capital Growth Since 2007
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Wealth. Trust. Growth. <br/>
+                        <span class="gold-gradient-text">In Synergy.</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-300 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Pioneering wealth management solutions tailored for domestic and NRI investors. Empowering your financial future through disciplined asset allocation strategy for stable growth.
+                    </p>
+                    
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#calculator" class="bg-gold hover:bg-gold-hover text-white font-bold px-7 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 text-base">
+                            <i class="fa-solid fa-calculator"></i> Plan Retirement
+                        </a>
+                        <a href="#services" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl border border-white/20 transition-all flex items-center justify-center gap-2 text-base">
+                            Explore Services <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Decorative Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/15 shadow-2xl relative">
+                        <div class="text-gold font-semibold text-sm uppercase tracking-wider mb-2">Why Synergy Fincare</div>
+                        <h3 class="text-2xl font-bold mb-4">Future-Ready Investment Portfolio Services</h3>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+                            With over 60+ years of collective team experience, we guide individuals, corporate entities, and NRIs with risk-balanced, stable yield wealth strategies.
+                        </p>
+
+                        <!-- Highlights Pills -->
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/10">
+                                <i class="fa-solid fa-circle-check text-gold mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-sm">Corporate NPS & Tax Optimization</div>
+                                    <div class="text-xs text-slate-400">Maximize employee tax benefits & long-term wealth</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/10">
+                                <i class="fa-solid fa-circle-check text-gold mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-sm">GIFT City & Global Funds</div>
+                                    <div class="text-xs text-slate-400">Inbound & cross-border portfolio diversification</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/10">
+                                <i class="fa-solid fa-circle-check text-gold mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-sm">Tailored Family Office Advisory</div>
+                                    <div class="text-xs text-slate-400">Comprehensive wealth preservation & estate planning</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Stats Bar -->
+            <div class="mt-8 pt-6 lg:mt-10 lg:pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-black text-gold">2,000+</div>
+                    <div class="text-sm font-medium text-slate-300 mt-1">Investors (Domestic & Global NRIs)</div>
+                </div>
+                <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-black text-gold">₹250+ Crore</div>
+                    <div class="text-sm font-medium text-slate-300 mt-1">Assets Under Management (AUM)</div>
+                </div>
+                <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-black text-gold">60+ Years</div>
+                    <div class="text-sm font-medium text-slate-300 mt-1">Collective Financial Expertise</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-8 md:py-10 lg:py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block text-gold font-bold text-sm uppercase tracking-wider">About Synergy Fincare</div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-navy">
+                        Trusted Financial Services Team <span class="text-gold">Together Since 2007</span>
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed text-base">
+                        At Synergy Fincare (Stable Yield), we are proud to be one of the early adopters of future-ready, unique wealth solutions tailored specifically for both domestic Indian investors and Global NRIs.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed text-base">
+                        Our holistic approach combines institutional-grade market insights with personalized service, ensuring every client receives tailored guidance across Corporate NPS, Mutual Funds, SIF, GIFT City Inbound Funds, Asset Allocation, and Retirement Planning.
+                    </p>
+
+                    <!-- Office Locations Pills -->
+                    <div class="pt-4">
+                        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Our Presence Across Hubs</div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 text-navy font-semibold text-sm border border-slate-200">
+                                <i class="fa-solid fa-location-dot text-gold"></i> Bangalore
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 text-navy font-semibold text-sm border border-slate-200">
+                                <i class="fa-solid fa-location-dot text-gold"></i> Mangalore
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 text-navy font-semibold text-sm border border-slate-200">
+                                <i class="fa-solid fa-location-dot text-gold"></i> Hubli
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 text-navy font-semibold text-sm border border-slate-200">
+                                <i class="fa-solid fa-location-dot text-gold"></i> Cochin
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Interactive Highlight Box -->
+                <div class="bg-slateBg p-8 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-32 h-32 bg-gold/10 rounded-full blur-2xl pointer-events-none"></div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">Our Core Philosophy</h3>
+                    <div class="space-y-4 text-slate-600">
+                        <div class="p-4 bg-white rounded-xl border border-slate-200 flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold font-bold flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="font-bold text-navy text-base">Capital Preservation First</h4>
+                                <p class="text-sm mt-1">Prioritizing stable, risk-adjusted returns to protect wealth across market cycles.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-200 flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold font-bold flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="font-bold text-navy text-base">Tax-Optimized Growth</h4>
+                                <p class="text-sm mt-1">Utilizing modern vehicles like NPS, SIF, and GIFT City instruments for maximum efficiency.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-200 flex gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center text-gold font-bold flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="font-bold text-navy text-base">End-to-End Life Goals</h4>
+                                <p class="text-sm mt-1">From early wealth creation at 30 to retirement, family wealth transfer, and health protection.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-8 md:py-10 lg:py-12 bg-slateBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-gold font-bold text-sm uppercase tracking-wider">Our Comprehensive Offerings</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy mt-2">New-Age Investment & Wealth Solutions</h2>
+                <p class="text-slate-600 mt-4 text-base">Carefully curated financial products to build, grow, and secure your generational portfolio.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">Corporate NPS</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Structured National Pension System programs for corporate employees offering unmatched Section 80CCD(2) tax benefits and long-term retirement security.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">Mutual Funds & SIP</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Systematic Investment Plans (SIP) and lump-sum mutual fund portfolios crafted through disciplined asset allocation & rigorous research.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">Specialized Investment Funds (SIF)</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Exclusive high-conviction investment strategies engineered for sophisticated investors seeking alpha across market cycles.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">GIFT City Inbound & Global Funds</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Seamless cross-border investment corridors enabling global NRIs and institutions to participate in India's growth story tax-efficiently.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-passport"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">NRI Wealth Management</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Dedicated NRI Desk providing compliance-ready, seamless investment advisory, repatriation assistance, and tax guidance.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">Retirement Solutions</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Tailored retirement roadmaps designed to generate inflation-adjusted passive income and preserve financial freedom post-30s.
+                    </p>
+                    <a href="#calculator" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Try Calculator <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 7 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">PMS & Asset Allocator</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Direct equity and specialized Portfolio Management Services managed by top fund managers with dynamic rebalancing strategies.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 8 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">Family Office Advisory</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Unified wealth management for high-net-worth families covering inter-generational wealth transfer, estate planning, and risk management.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+
+                <!-- Service 9 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-xl flex items-center justify-center text-xl font-bold mb-5 group-hover:bg-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-2">Health & Life Insurance</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Comprehensive protection solutions to safeguard your family's health and financial stability against unforeseen life risks.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center text-xs font-bold text-navy hover:text-gold uppercase tracking-wider">Enquire  Service <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retirement Calculator Section (Moved Above Macro Insights) -->
+    <section id="calculator" class="py-8 md:py-10 lg:py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="text-gold font-bold text-sm uppercase tracking-wider">Interactive Financial Planning</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy mt-2">Retirement Wealth Accumulation Calculator</h2>
+                <p class="text-slate-600 mt-3 text-base">
+                    Discover how starting at <strong>Age 30</strong> with <strong>₹10,000/month</strong> and applying a <strong>10% Annual Step-up</strong> can transform your retirement corpus at Age 50 or 60.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Calculator Controls -->
+                <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="text-xl font-bold text-navy border-b border-slate-100 pb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-gold"></i> Adjust Your Inputs
+                    </h3>
+
+                    <!-- Starting Age Input -->
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <label for="currentAge" class="text-slate-700">Current Age</label>
+                            <span id="ageVal" class="text-navy font-bold">30 Years</span>
+                        </div>
+                        <input type="range" id="currentAge" min="20" max="45" value="30" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-gold">
+                    </div>
+
+                    <!-- Target Retirement Age Toggle -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Target Retirement Age</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="retire50" type="button" onclick="setRetireAge(50)" class="py-2.5 rounded-xl border text-sm font-bold transition-all bg-navy text-white border-navy">
+                                Age 50 (Early)
+                            </button>
+                            <button id="retire60" type="button" onclick="setRetireAge(60)" class="py-2.5 rounded-xl border text-sm font-bold transition-all bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200">
+                                Age 60 (Standard)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Initial Monthly Investment Slider -->
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <label for="monthlyInv" class="text-slate-700">Starting Monthly Investment</label>
+                            <span id="monthlyVal" class="text-navy font-bold">₹10,000 / mo</span>
+                        </div>
+                        <input type="range" id="monthlyInv" min="2000" max="50000" step="1000" value="10000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-gold">
+                    </div>
+
+                    <!-- Expected Return Rate Slider -->
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <label for="returnRate" class="text-slate-700">Expected Annual Return (CAGR)</label>
+                            <span id="returnVal" class="text-navy font-bold">12 %</span>
+                        </div>
+                        <input type="range" id="returnRate" min="8" max="15" step="0.5" value="12" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-gold">
+                    </div>
+
+                    <!-- Step up comparison info banner -->
+                    <div class="p-4 bg-gold/10 rounded-xl border border-gold/20 text-xs text-slate-700 space-y-1">
+                        <div class="font-bold text-navy flex items-center gap-1.5">
+                            <i class="fa-solid fa-bolt text-gold"></i> The Power of Step-Up Investment
+                        </div>
+                        <p class="leading-relaxed">
+                            Increasing your monthly investment by just <strong>10% each year</strong> aligned with salary increments can dramatically double or triple your ultimate retirement wealth!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Results & Comparison Visualization -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Cards Comparison Summary -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Flat Strategy Card -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Strategy A: Flat SIP</div>
+                            <div class="text-sm font-medium text-slate-600 mb-3">₹10,000 / month (No Increase)</div>
+                            <div id="flatCorpus" class="text-2xl font-black text-slate-800">₹ 98.9 Lakhs</div>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between text-xs text-slate-500">
+                                <span>Invested: <strong id="flatInvested">₹ 24 Lakhs</strong></span>
+                                <span>Gains: <strong id="flatGains" class="text-emerald-600">₹ 74.9 Lakhs</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Step-up Strategy Card -->
+                    <div class="navy-gradient p-5 rounded-2xl border border-navy text-white shadow-md relative overflow-hidden">
+                        <div class="absolute top-2 right-2 bg-gold text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">
+                            Recommended
+                        </div>
+                        <div class="text-xs font-bold text-gold uppercase tracking-wider mb-1">Strategy B: 10% Step-Up SIP</div>
+                        <div class="text-sm font-medium text-slate-300 mb-3">Starting ₹10,000 + 10% yearly</div>
+                        <div id="stepCorpus" class="text-2xl font-black text-gold">₹ 2.14 Crores</div>
+                        <div class="mt-3 pt-3 border-t border-white/10 flex justify-between text-xs text-slate-300">
+                            <span>Invested: <strong id="stepInvested">₹ 68.7 Lakhs</strong></span>
+                            <span>Gains: <strong id="stepGains" class="text-gold">₹ 1.45 Crores</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Chart -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-base font-bold text-navy">Corpus Growth Trajectory Comparison</h4>
+                        <div class="flex items-center gap-4 text-xs font-semibold">
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-400 inline-block"></span> Flat SIP</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-gold inline-block"></span> 10% Step-Up</span>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[280px]">
+                        <canvas id="calcChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Macro Insights / Investor Growth Trends Section (MOVED BELOW Retirement Calculator) -->
+    <section id="trends" class="py-8 md:py-10 lg:py-12 bg-slateBg border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-gold font-bold text-sm uppercase tracking-wider">Macro Insights</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-navy">
+                        Rapidly Growing Investor Participation in India
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed text-base">
+                        Over the past decade, Indian retail and NRI investors have shifted strongly toward financial assets like Mutual Funds (SIPs), Direct Equities, and National Pension System (NPS).
+                    </p>
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span>
+                            <span class="text-sm font-semibold text-slate-700">Demat Accounts (Stocks) — Surged past 150M+</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                            <span class="text-sm font-semibold text-slate-700">Mutual Fund SIP Accounts — Over 85M Active SIPs</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                            <span class="text-sm font-semibold text-slate-700">NPS Subscribers — Growing consistently for tax-smart wealth</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-500">
+                        <i class="fa-solid fa-circle-info text-navy mr-1"></i> Figures reflect realistic multi-year growth trajectories across Indian financial markets (in Millions of investors).
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-navy">Investor Base Growth (2018 - 2026)</h3>
+                        <span class="text-xs bg-white text-navy font-semibold px-3 py-1 rounded-full border border-slate-200">In Millions</span>
+                    </div>
+                    <div class="relative w-full h-[320px]">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Details Section (Updated per feedback) -->
+    <section id="contact" class="py-8 md:py-10 lg:py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="text-gold font-bold text-sm uppercase tracking-wider">Get In Touch</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy mt-1">Connect With Us</h2>
+                <p class="text-slate-600 mt-3 text-base">
+                    Reach out directly to our leadership team for personalized portfolio planning, corporate NPS setup, or NRI wealth consultations.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <!-- Lead Advisor Card (Name removed, updated title/contact) -->
+                <div class="bg-slateBg p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-full bg-navy text-gold flex items-center justify-center font-extrabold text-2xl border-2 border-gold shadow-sm">
+                                SF
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-navy">Lead Advisor - Synergy Fincare</h3>
+                              
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-2 text-sm">
+                            <div class="flex items-center gap-2 text-slate-600"><i class="fa-solid fa-id-card text-gold"></i> <span class="font-semibold text-navy">AMFI Registration Number:</span> ARN-126998</div>
+                            <div class="flex items-center gap-2 text-slate-600"><i class="fa-solid fa-calendar-check text-gold"></i> <span class="font-semibold text-navy">ARN Valid till:</span> 09-AUG-2029</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Quick Direct WhatsApp Button -->
+                    <div class="mt-8 pt-6 border-t border-slate-200">
+                        <a href="https://wa.me/918217620725?text=Hello%20Synergy%20Fincare,%20I%20would%20like%20to%20know%20more%20about%20your%20wealth%20services." target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl text-sm sm:text-base text-center flex items-center justify-center gap-2.5 transition-all shadow-md hover:shadow-lg">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Connect on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Office Address & Locations Card (URL & Working Hours removed) -->
+                <div class="bg-slateBg p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-navy border-b border-slate-200 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-gold"></i> Registered Office & Locations
+                        </h3>
+
+                        <div class="space-y-2">
+                            <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Bangalore Corporate Address</div>
+                            <p class="text-slate-800 font-medium text-base leading-relaxed">
+                                Gate 3 Sevasadan, 8th Main, 3rd Block, Koramangala,<br/>
+                                Bangalore, Karnataka - 560034
+                            </p>
+                        </div>
+
+					<div class="pt-2">
+						<div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-3">Regional Network Hubs</div>
+						<div class="grid grid-cols-2 gap-3">
+							<div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2 font-semibold text-sm text-navy">
+								<i class="fa-solid fa-landmark-dome text-gold text-base"></i> Bangalore
+							</div>
+							<div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2 font-semibold text-sm text-navy">
+								<i class="fa-solid fa-umbrella-beach text-gold text-base"></i> Mangalore
+							</div>
+							<div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2 font-semibold text-sm text-navy">
+								<i class="fa-solid fa-landmark text-gold text-base"></i> Dharwad-Hubli
+							</div>
+							<div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2 font-semibold text-sm text-navy">
+								<i class="fa-solid fa-ship text-gold text-base"></i> Cochin
+							</div>
+						</div>
+					</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Section (Newly Added per feedback) -->
+    <section class="py-10 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-navy mb-3 flex items-center gap-2">
+                   Disclaimer
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed font-medium">
+                    Investments in securities markets are subject to market risks. Past performance is not indicative of future performance and should not be relied upon as a guide. Please ensure you read all related documents carefully before investing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-slate-600 py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Brand Info -->
+                <div class="md:col-span-2 space-y-4">
+                 <div class="inline-flex items-center bg-white rounded-none">
+					<img src="logo.png" alt="Synergy Fincare Logo" class="h-14 w-auto object-contain">
+				</div>
+                    <p class="text-xs text-slate-600 leading-relaxed max-w-md">
+                        Stable Yield | Care for capital growth since 2007. Trusted financial advisors offering comprehensive portfolio services, retirement planning, Corporate NPS, and NRI wealth services.
+                    </p>
+                    <div class="text-xs text-slate-600">
+                        <strong>Locations:</strong> Bangalore | Mangalore | Hubli | Cochin
+                    </div>
+                </div>
+
+                <!-- Quick Links (Growth Trends removed) -->
+                <div>
+                    <h4 class="text-navy text-sm font-bold uppercase tracking-wider mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#home" class="hover:text-gold transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-gold transition-colors">About Us</a></li>
+                        <li><a href="#services" class="hover:text-gold transition-colors">Services</a></li>
+                        <li><a href="#calculator" class="hover:text-gold transition-colors">Retirement Calculator</a></li>
+                        <li><a href="#contact" class="hover:text-gold transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-slate-200 text-center md:flex md:justify-between text-xs text-slate-500">
+                <p>&copy; 2026 Synergy Fincare (Stable Yield). All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Investments are subject to market risks. Read all scheme related documents carefully.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global State Variables for Calculator
+        let targetRetireAge = 50;
+        let calcChartInstance = null;
+        let growthChartInstance = null;
+
+        // On DOM Load Initialize Controls & Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            initMobileMenu();
+            renderGrowthChart();
+            setupCalculatorListeners();
+            calculateRetirement();
+        });
+
+        // Mobile Menu Navigation Toggle
+        function initMobileMenu() {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Render Macro Growth Trends Chart
+        function renderGrowthChart() {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            
+            const labels = ['2018', '2020', '2022', '2024', '2026'];
+            
+            growthChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Demat Accounts (Stocks)',
+                            data: [35, 45, 90, 140, 165],
+                            borderColor: '#2563EB',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Mutual Fund SIP Accounts',
+                            data: [21, 31, 52, 79, 92],
+                            borderColor: '#D99B00',
+                            backgroundColor: 'rgba(217, 155, 0, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'NPS Subscribers (Non-Govt/Corp)',
+                            data: [8, 12, 19, 28, 38],
+                            borderColor: '#10B981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: { family: 'Plus Jakarta Sans', size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' Million';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#E2E8F0' },
+                            ticks: {
+                                callback: function(value) { return value + 'M'; }
+                            }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Setup Calculator Event Listeners
+        function setupCalculatorListeners() {
+            const ageInput = document.getElementById('currentAge');
+            const monthlyInput = document.getElementById('monthlyInv');
+            const returnInput = document.getElementById('returnRate');
+
+            ageInput.addEventListener('input', (e) => {
+                document.getElementById('ageVal').innerText = e.target.value + ' Years';
+                calculateRetirement();
+            });
+
+            monthlyInput.addEventListener('input', (e) => {
+                document.getElementById('monthlyVal').innerText = '₹' + parseInt(e.target.value).toLocaleString('en-IN') + ' / mo';
+                calculateRetirement();
+            });
+
+            returnInput.addEventListener('input', (e) => {
+                document.getElementById('returnVal').innerText = e.target.value + ' %';
+                calculateRetirement();
+            });
+        }
+
+        // Toggle Retirement Target Age
+        function setRetireAge(age) {
+            targetRetireAge = age;
+            const btn50 = document.getElementById('retire50');
+            const btn60 = document.getElementById('retire60');
+
+            if(age === 50) {
+                btn50.className = "py-2.5 rounded-xl border text-sm font-bold transition-all bg-navy text-white border-navy";
+                btn60.className = "py-2.5 rounded-xl border text-sm font-bold transition-all bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200";
+            } else {
+                btn60.className = "py-2.5 rounded-xl border text-sm font-bold transition-all bg-navy text-white border-navy";
+                btn50.className = "py-2.5 rounded-xl border text-sm font-bold transition-all bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200";
+            }
+
+            calculateRetirement();
+        }
+
+        // Calculation Logic for Flat vs Step-Up SIP
+        function calculateRetirement() {
+            const startAge = parseInt(document.getElementById('currentAge').value);
+            const initialMonthly = parseFloat(document.getElementById('monthlyInv').value);
+            const annualReturn = parseFloat(document.getElementById('returnRate').value) / 100;
+            const monthlyRate = annualReturn / 12;
+
+            if (startAge >= targetRetireAge) {
+                document.getElementById('flatCorpus').innerText = '₹ 0';
+                document.getElementById('stepCorpus').innerText = '₹ 0';
+                return;
+            }
+
+            const totalYears = targetRetireAge - startAge;
+            const labels = [];
+            const flatData = [];
+            const stepData = [];
+
+            let flatInvestedTotal = 0;
+            let flatCorpusTotal = 0;
+
+            let stepInvestedTotal = 0;
+            let stepCorpusTotal = 0;
+
+            let currentStepMonthly = initialMonthly;
+
+            for (let year = 1; year <= totalYears; year++) {
+                labels.push('Age ' + (startAge + year));
+
+                for (let m = 0; m < 12; m++) {
+                    flatInvestedTotal += initialMonthly;
+                    flatCorpusTotal = (flatCorpusTotal + initialMonthly) * (1 + monthlyRate);
+                }
+                flatData.push(Math.round(flatCorpusTotal));
+
+                for (let m = 0; m < 12; m++) {
+                    stepInvestedTotal += currentStepMonthly;
+                    stepCorpusTotal = (stepCorpusTotal + currentStepMonthly) * (1 + monthlyRate);
+                }
+                stepData.push(Math.round(stepCorpusTotal));
+
+                currentStepMonthly *= 1.10;
+            }
+
+            document.getElementById('flatCorpus').innerText = formatCurrency(flatCorpusTotal);
+            document.getElementById('flatInvested').innerText = formatCurrency(flatInvestedTotal);
+            document.getElementById('flatGains').innerText = formatCurrency(flatCorpusTotal - flatInvestedTotal);
+
+            document.getElementById('stepCorpus').innerText = formatCurrency(stepCorpusTotal);
+            document.getElementById('stepInvested').innerText = formatCurrency(stepInvestedTotal);
+            document.getElementById('stepGains').innerText = formatCurrency(stepCorpusTotal - stepInvestedTotal);
+
+            updateCalcChart(labels, flatData, stepData);
+        }
+
+        // Helper Function to Format Currency into Lakhs/Crores
+        function formatCurrency(val) {
+            if (val >= 10000000) {
+                return '₹ ' + (val / 10000000).toFixed(2) + ' Crores';
+            } else if (val >= 100000) {
+                return '₹ ' + (val / 100000).toFixed(2) + ' Lakhs';
+            } else {
+                return '₹ ' + Math.round(val).toLocaleString('en-IN');
+            }
+        }
+
+        // Update Calculator Chart Visualization
+        function updateCalcChart(labels, flatData, stepData) {
+            const ctx = document.getElementById('calcChart').getContext('2d');
+
+            if (calcChartInstance) {
+                calcChartInstance.destroy();
+            }
+
+            calcChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Flat ₹10,000 / mo',
+                            data: flatData,
+                            backgroundColor: '#94A3B8',
+                            borderRadius: 4
+                        },
+                        {
+                            label: '10% Step-Up SIP',
+                            data: stepData,
+                            backgroundColor: '#D99B00',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#F1F5F9' },
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 10000000) return '₹' + (value/10000000).toFixed(1) + 'Cr';
+                                    if (value >= 100000) return '₹' + (value/100000).toFixed(0) + 'L';
+                                    return value;
+                                }
+                            }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
